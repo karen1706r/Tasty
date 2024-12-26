@@ -1,0 +1,51 @@
+<div class="title-container text-center mb-4">
+    <div class="custom-title">
+        <span>Gestión de Inventario</span>
+    </div>
+</div>
+
+<div class="card shadow-lg">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <button (click)="agregarInventario()" type="button" class="btn2 btn-2">
+                <i class="bi bi-file-earmark-plus"></i>
+                <span>Agregar Inventario</span>
+            </button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table mb-0 table-striped table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col"></th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col">Ingrediente</th>
+                        <th scope="col">Cantidad</th>
+                        <th scope="col">Fecha Ingreso</th>
+                        <th scope="col">Fecha Vencimiento</th>
+                        <th scope="col" class="text-center">Funciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pry of inventario" class="align-middle">
+                        <th></th>
+                        <td>{{ loadCategoria(pry.id_categoria) }}</td>
+                        <td>{{ loadIngrediente(pry.id_ingrediente) }}</td>
+                        <td>{{ pry.cantidad }}</td>
+                        <td>{{ pry.fecha_ingreso }}</td>
+                        <td>{{ pry.fecha_vencimiento }}</td>
+                        <td class="text-center">
+                            <i role="button" (click)="editarInventario(pry.id)"
+                                class="bi bi-pencil-square me-2 icon-edit" title="Editar"></i>
+                            <i role="button" (click)="borrarInventario(pry.id)" class="bi bi-trash icon-delete"
+                                title="Borrar"></i>
+                        </td>
+                    </tr>
+                    <tr *ngIf="inventario?.length === 0">
+                        <td colspan="7" class="text-center text-muted">No hay registros de inventario disponibles.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

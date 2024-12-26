@@ -1,0 +1,135 @@
+<div class="title-container text-center mb-4">
+    <div class="custom-title">
+        <span>Crear usuario</span>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form [formGroup]="usuarios" (ngSubmit)="save()" novalidate>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="nombre_completo">
+                    <i class="bi bi-person-fill"></i> Nombre:
+                </label>
+                <input type="text" class="form-control" formControlName="nombre_completo" id="nombre_completo" placeholder="Ingresa el nombre completo" />
+                <div *ngIf="usuarios.get('nombre_completo').hasError('required') && usuarios.get('nombre_completo').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El campo es obligatorio. Por favor, ingrese un nombre.
+                </div>
+                <div *ngIf="usuarios.get('nombre_completo').hasError('pattern') && usuarios.get('nombre_completo').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El nombre solo puede contener letras.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="cedula">
+                    <i class="bi bi-card-text"></i> Cédula:
+                </label>
+                <input type="text" class="form-control" formControlName="cedula" id="cedula" placeholder="Ingresa la cédula" required />
+                <div *ngIf="usuarios.get('cedula').hasError('required') && usuarios.get('cedula').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El campo es obligatorio. Por favor, ingrese una cédula.
+                </div>
+                <div *ngIf="usuarios.get('cedula').hasError('pattern') && usuarios.get('cedula').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> La cédula solo puede contener números.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="contrasena">
+                    <i class="bi bi-lock-fill"></i> Contraseña:
+                </label>
+                <div class="input-group">
+                    <input [type]="isPasswordVisible ? 'text' : 'password'" class="form-control" formControlName="contrasena" id="contrasena" placeholder="Ingresa una contraseña" required />
+                    <span class="input-group-text" (click)="togglePasswordVisibility()" style="cursor: pointer;">
+                        <i [ngClass]="isPasswordVisible ? 'bi bi-eye' : 'bi bi-eye-slash'" style="color: #386aff;"></i>
+                    </span>
+                </div>
+                <div *ngIf="usuarios.get('contrasena').hasError('required') && usuarios.get('contrasena').touched" class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El campo es obligatorio. Por favor, ingrese una contraseña.
+                </div>
+                <div *ngIf="usuarios.get('contrasena').hasError('pattern') && usuarios.get('contrasena').touched" class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> La contraseña debe tener exactamente 6 caracteres, incluyendo letras y números.
+                </div>
+            </div>
+
+            
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="correo">
+                    <i class="bi bi-envelope-fill"></i> Correo:
+                </label>
+                <input type="email" class="form-control" formControlName="correo" id="correo" placeholder="Ingresa el correo" required />
+                <div *ngIf="usuarios.get('correo').hasError('required') && usuarios.get('correo').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El campo es obligatorio. Por favor, ingrese un correo.
+                </div>
+                <div *ngIf="usuarios.get('correo').hasError('email') && usuarios.get('correo').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> Por favor, ingrese un correo válido.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="telefono">
+                    <i class="bi bi-telephone-fill"></i> Teléfono:
+                </label>
+                <input type="text" class="form-control" formControlName="telefono" id="telefono" placeholder="Ingresa el teléfono" required />
+                <div *ngIf="usuarios.get('telefono').hasError('required') && usuarios.get('telefono').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El campo es obligatorio. Por favor, ingrese un teléfono.
+                </div>
+                <div *ngIf="usuarios.get('telefono').hasError('pattern') && usuarios.get('telefono').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El teléfono debe tener exactamente 10 dígitos.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="direccion">
+                    <i class="bi bi-house-fill"></i> Dirección:
+                </label>
+                <input type="text" class="form-control" formControlName="direccion" id="direccion" placeholder="Ingresa la dirección" required />
+                <div *ngIf="usuarios.get('direccion').hasError('required') && usuarios.get('direccion').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El campo es obligatorio. Por favor, ingrese una dirección.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="tipo">
+                    <i class="bi bi-person-badge-fill"></i> Tipo de Usuario:
+                </label>
+                <select class="form-control" formControlName="id_tipo_usuario" id="tipo" required>
+                    <option value="" disabled selected>Seleccione un tipo de usuario</option>
+                    <option *ngFor="let tipo of tipos_de_usuario" [value]="tipo.id">{{ tipo.nombre_tipo }}</option>
+                </select>
+                <div *ngIf="usuarios.get('id_tipo_usuario').hasError('required') && usuarios.get('id_tipo_usuario').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El tipo de usuario es obligatorio.
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn2" [disabled]="usuarios.invalid">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Guardar</span>
+                </button>
+
+                <a routerLink="/dashboard/usuarios" class="btn2">
+                    <i class="bi bi-arrow-left-circle-fill"></i>
+                    <span>Ver Usuarios</span>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="isSubmitted" class="alert alert-success align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="SUCCESS:">
+        <use xlink:href="#exclamation-triangle-fill" />
+    </svg>
+    <span>Usuario creado exitosamente.</span>
+</div>

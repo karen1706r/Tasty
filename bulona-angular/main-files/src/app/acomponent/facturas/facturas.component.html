@@ -1,0 +1,114 @@
+<!-- Contenido principal de la factura -->
+<div class="factura-container">
+    <h2>Factura del Pedido - Mesa {{ numeroMesa }}</h2>
+    <p><strong>Fecha y Hora:</strong> {{ fecha_hora | date: 'dd/MM/yyyy HH:mm' }}</p>
+
+    <h3>Pedidos de la Mesa</h3>
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Nombre Plato</th>
+                    <th>Cantidad</th>
+                    <th>Precio/u</th>
+                    <th>Precio Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let pedido of pedidos_por_mesa">
+                    <td>{{ pedido.nombre }}</td>
+                    <td>{{ pedido.cantidad }}</td>
+                    <td>{{ pedido.precio | currency }}</td>
+                    <td>{{ (pedido.precio * pedido.cantidad) | currency }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3" class="text-right"><strong>Total:</strong></td>
+                    <td><strong>{{ totalFactura | currency }}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Botón para abrir el modal de opciones de pago -->
+    <button type="button" class="btn2 pagar-btn" (click)="abrirOpciones()">
+        <i class="icono-pagar bi bi-credit-card"></i>
+        <span>Pagar</span>
+    </button>
+</div>
+
+
+<div #reciboVoucher class="voucher-container"
+    style="position: absolute; top: -9999px; left: -9999px; width: 90mm; padding: 5px; font-size: 9px;">
+    <h3>Amor a la Mexicana</h3>
+    <p>NIT: xxxxxxxxxxx</p>
+    <p>Tel: xxxxxxxxxx</p>
+    <p>Pasto - Nariño DIAN xxxxxxx/xxxxx</p>
+    <p>Fecha: {{ fecha_hora | date: 'dd/MM/yyyy HH:mm' }}</p>
+    <p><strong>Mesa:</strong> {{ numeroMesa }}</p>
+
+    <table class="voucher-table">
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Cant</th>
+                <th>Precio/u</th> <!-- Columna para el precio unitario -->
+                <th>Valor Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pedido of pedidos_por_mesa">
+                <td>{{ pedido.nombre }}</td>
+                <td>{{ pedido.cantidad }}</td>
+                <td>{{ pedido.precio | currency }}</td> <!-- Muestra el precio unitario aquí -->
+                <td>{{ (pedido.precio * pedido.cantidad) | currency }}</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3">Total</td>
+                <td>{{ totalFactura | currency }}</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+
+<!-- Modal de opciones de factura -->
+<div *ngIf="mostrarModalOpciones" class="modal-background">
+    <div class="modal-content">
+        <h3>Opciones de Factura</h3>
+
+        <!-- Contenido del voucher como miniatura -->
+        <div *ngIf="facturaMiniatura" class="factura-miniatura">
+            <img [src]="facturaMiniatura" alt="Miniatura de la factura" />
+        </div>
+
+        <!-- Opciones de la factura -->
+        <button (click)="imprimirFactura()" class="modal-button2">Imprimir o Guardar Factura</button>
+        <button (click)="enviarPorCorreo()" class="modal-button2">Enviar factura por correo</button>
+
+        <!-- Contenedor de botones en una fila -->
+        <div class="button-row">
+            <button (click)="pagarFactura()" class="modal-button important-action">Pagar</button>
+            <button (click)="cerrarOpciones()" class="modal-button cancel-button">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Modal para ingresar el correo electrónico -->
+<div *ngIf="mostrarModalCorreo" class="modal-background">
+    <div class="modal-content">
+        <h3>Enviar factura por correo</h3>
+
+        <div class="input-group2">
+            <label for="email">Correo electrónico:</label>
+            <input type="email" id="email" [(ngModel)]="correoDestino" placeholder="ejemplo@correo.com" required />
+        </div>
+
+        <div class="button-row">
+            <button (click)="confirmarEnvioCorreo()" class="modal-button3 important-action">Enviar</button>
+            <button (click)="cerrarModalCorreo()" class="modal-button3 cancel-button">Cancelar</button>
+        </div>
+    </div>
+</div>

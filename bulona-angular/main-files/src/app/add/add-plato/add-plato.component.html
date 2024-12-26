@@ -1,0 +1,69 @@
+<div class="title-container text-center mb-4">
+    <div class="custom-title">
+        <span>Crear Platos</span>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form [formGroup]="platosForm" (ngSubmit)="save()" novalidate>
+            
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="nombre">
+                    <i class="bi bi-basket"></i> Nombre del Plato:
+                </label>
+                <input type="text" id="nombre" formControlName="nombre" class="form-control"
+                    placeholder="Ingrese el nombre del plato"
+                    [class.is-invalid]="platosForm.get('nombre')?.invalid && platosForm.get('nombre')?.touched" />
+                <div *ngIf="platosForm.get('nombre')?.invalid && platosForm.get('nombre')?.touched" class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El nombre es requerido y solo debe contener letras.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="categoria">
+                    <i class="bi bi-box"></i> Categoría Platos:
+                </label>
+                <select id="categoria" formControlName="id_categoria" class="form-control"
+                    [class.is-invalid]="platosForm.get('id_categoria')?.invalid && platosForm.get('id_categoria')?.touched">
+                    <option value="">Seleccione una categoría de plato</option>
+                    <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre_categoria }}</option>
+                </select>
+                <div *ngIf="platosForm.get('id_categoria')?.invalid && platosForm.get('id_categoria')?.touched" class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> Seleccione una categoría.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="precio">
+                    <i class="bi bi-cash"></i> Precio:
+                </label>
+                <input type="number" id="precio" formControlName="precio" class="form-control"
+                    placeholder="Ingrese el precio del plato"
+                    [class.is-invalid]="platosForm.get('precio')?.invalid && platosForm.get('precio')?.touched" />
+                <div *ngIf="platosForm.get('precio')?.invalid && platosForm.get('precio')?.touched" class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El precio es requerido y debe ser mayor a 0.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="imagen">
+                    <i class="bi bi-image"></i> Subir Imagen:
+                </label>
+                <input type="file" (change)="onFileSelected($event)" class="form-control" id="imagen" accept="image/*" />
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button [disabled]="platosForm.invalid" type="submit" class="btn2">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Guardar</span>
+                </button>
+                
+                <a routerLink="/dashboard/platos" class="btn2">
+                    <i class="bi bi-arrow-left-circle-fill"></i>
+                    <span>Ver Platos</span>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

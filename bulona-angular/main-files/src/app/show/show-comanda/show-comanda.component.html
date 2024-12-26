@@ -1,0 +1,88 @@
+<div class="title-container text-center mb-4">
+    <div class="custom-title">
+        <span>Lista de pedidos</span>
+    </div>
+</div>
+
+<!-- Mensaje mientras se cargan los pedidos -->
+<div *ngIf="loading" class="loading-message">
+    <p>Cargando pedidos...</p>
+</div>
+
+<div class="card shadow-lg">
+    <div class="card-body">
+        <!-- Tabla de pedidos cuando hay datos -->
+        <div *ngIf="!loading && pedidosPorMesa.length > 0">
+            <div class="table-responsive">
+                <table class="table mb-0 table-striped table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col"></th>
+                            <th scope="col">Nombre del Plato</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Comentarios</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let pedido of pedidosPorMesa; index as i" class="align-middle">
+                            <td></td>
+                            <td>{{ pedido.nombre_plato || 'Plato no encontrado' }}</td>
+                            <td>{{ pedido.cantidad }}</td>
+                            <td>{{ pedido.comentarios }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <br>
+
+            <!-- Botón de Imprimir Comanda para todos los pedidos -->
+            <button type="button" class="btn2 pagar-btn" (click)="abrirOpciones()">
+                <i class="icono-pagar bi bi-credit-card"></i>
+                <span>Imprimir</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Mensaje cuando no hay pedidos -->
+<div *ngIf="!loading && pedidosPorMesa.length === 0" class="no-orders-message">
+    <p>No hay pedidos disponibles.</p>
+</div>
+
+<div #comandaVoucher class="voucher-container"
+    style="position: absolute; top: -9999px; left: -9999px; width: 50mm; padding: 5px; font-size: 9px;">
+
+    <table class="voucher-table">
+        <thead>
+            <tr>
+                <th>Descripción</th>
+                <th>Comentarios</th>
+                <th>Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let pedido of pedidosPorMesa">
+                <td>{{ pedido.nombre_plato || 'Plato no encontrado' }}</td>
+                <td>{{ pedido.comentarios }}</td>
+                <td>{{ pedido.cantidad }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Modal de opciones de comanda -->
+<div *ngIf="mostrarModalOpciones" class="modal-background">
+    <div class="modal-content">
+        <h3>Opciones de comanda</h3>
+
+        <!-- Contenido del voucher como miniatura -->
+        <div *ngIf="comandaMiniatura" class="comanda-miniatura">
+            <img [src]="comandaMiniatura" alt="Miniatura de la comanda" />
+        </div>
+
+        <!-- Opciones de la comanda -->
+        <button (click)="imprimirComanda()" class="modal-button">Imprimir</button>
+        <button (click)="cerrarOpciones()" class="modal-button cancel-button">Cancelar</button>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="title-container text-center mb-4">
+    <div class="custom-title">
+        <span>Actualizar Plato</span>
+    </div>
+</div>
+
+<hr class="my-4" style="border-top: 2px solid #055ab4;" />
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form [formGroup]="platosForm" (ngSubmit)="save()">
+            <!-- Campos del formulario -->
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="nombre">
+                    <i class="bi bi-clipboard"></i> Nombre:
+                </label>
+                <input type="text" id="nombre" formControlName="nombre" class="form-control"
+                    placeholder="Ingrese el nombre del plato" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="id_categoria">
+                    <i class="bi bi-tags"></i> Categoría:
+                </label>
+                <select id="id_categoria" formControlName="id_categoria" class="form-control" required>
+                    <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nombre_categoria }}</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="precio">
+                    <i class="bi bi-currency-dollar"></i> Precio:
+                </label>
+                <input type="number" id="precio" formControlName="precio" class="form-control"
+                    placeholder="Ingrese el precio del plato" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="ruta">
+                    <i class="bi bi-image"></i> Imagen:
+                </label>
+                <input type="file" (change)="onFileSelected($event)" class="form-control-file">
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold">Imagen Actual:</label>
+                <div *ngIf="platosForm.get('ruta').value">
+                    <img [src]="getPlatoImageUrl(platosForm.get('ruta').value)" alt="Imagen del plato" width="100">
+                </div>
+                <div *ngIf="!platosForm.get('ruta').value">
+                    <span>No hay imagen disponible</span>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button [disabled]="platosForm.invalid || isSaving" type="submit" class="btn2">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Actualizar</span>
+                </button>
+
+                <a routerLink="/dashboard/platos" class="btn2">
+                    <i class="bi bi-arrow-left-circle-fill"></i>
+                    <span>Ver Platos</span>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div *ngIf="isSuccess" class="alert alert-success align-items-center" role="alert">
+    <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+        <use xlink:href="#exclamation-triangle-fill" />
+    </svg>
+    <span>La categoría fue actualizada con éxito</span>
+</div>

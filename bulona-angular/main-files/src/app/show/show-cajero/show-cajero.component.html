@@ -1,0 +1,35 @@
+<div class="title-container text-center mb-4">
+    <div class="custom-title">
+        <span>Cajero</span>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <!-- Contenedor de las mesas -->
+        <div class="table-responsive">
+            <div class="mesas-container">
+                <div *ngFor="let mesa of mesas" class="mesa-item text-center">
+                    <a href="javascript:void(0);" (click)="verFactura(mesa.id)" class="mesa-link">
+                        <img [src]="tienePedido(mesa.id) ? '../../../assets/mesas/mesa-ocupada.jpg' : '../../../assets/mesas/mesa-redonda.jpg'"
+                            [alt]="tienePedido(mesa.id) ? 'Mesa ocupada' : 'Mesa activa'" class="mesa-icon mb-2" />
+                        <hr>
+                        <label class="mesa-label">
+                            {{"Mesa: "+ mesa.numero }}
+                            <br>
+                            <span *ngIf="tienePedido(mesa.id)" class="text-warning">(Pago pendiente)</span>
+                            <span *ngIf="!tienePedido(mesa.id)" class="text-success">(Mesa libre)</span>
+                        </label>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Mensaje cuando no hay mesas disponibles -->
+<ng-template #noData>
+    <div class="text-center text-muted w-100">
+        No hay mesas disponibles.
+    </div>
+</ng-template>

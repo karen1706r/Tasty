@@ -1,0 +1,103 @@
+<div class="title-container text-center mb-4">
+    <div class="custom-title">
+        <span>Gráfica de Ventas Generales</span>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <!-- Selector de análisis -->
+        <div class="mb-4">
+            <label class="form-label fw-bold" for="categoria">
+                <i class="bi bi-box"></i> Seleccione un análisis
+            </label>
+            <select id="daySelector" class="form-control mt-2"
+                (change)="obtenerPrediccionesFiltradas($event.target.value)">
+                <option value="AnalisisGeneralCategorias">Análisis General Categorias</option>
+                <option value="general">Análisis General</option>
+                <option value="Lunes">Lunes</option>
+                <option value="Martes">Martes</option>
+                <option value="Miércoles">Miércoles</option>
+                <option value="Jueves">Jueves</option>
+                <option value="Viernes">Viernes</option>
+                <option value="Sábado">Sábado</option>
+                <option value="Domingo">Domingo</option>
+            </select>
+        </div>
+
+        <!-- Gráficas informativas para "Análisis General Categorias" -->
+        <div *ngIf="mostrarGraficasInformativas" class="container-fluid mt-4">
+            <div class="row">
+                <div *ngFor="let categoria of ventasPorCategoria; let catIndex = index" class="col-md-6 mb-4">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="card-header d-flex align-items-center justify-content-between">
+                                <div class="d-flex align-items-center">
+                                    <i class='bx bxs-category text-primary me-2' style="font-size: 24px;"></i>
+                                    <h5 class="mb-0 fw-bold">{{ categoria.nombre }}</h5>
+                                </div>
+                                <div class="font-22 ms-auto"><i class='bx bx-dots-horizontal-rounded'></i></div>
+                            </div>
+
+                            <div class="product-list p-3 mb-3" [perfectScrollbar]>
+                                <div *ngFor="let plato of categoria.platos; let i = index"
+                                    class="row border-bottom mx-0 py-3"
+                                    [ngClass]="{'bg-light': i % 0 === 0, 'bg-white': i % 0 !== 0}">
+                                    <div class="col-md-6">
+                                        <h6 class="fw-bold mb-1">{{ plato.plato }}</h6>
+                                        <p class="text-muted mb-0">Precio: ${{ plato.precio }}</p>
+                                    </div>
+                                    <div class="col-md-3 text-end ">
+                                        <h6 class="text-muted ingresos" >Total Ingresos: ${{ plato.total_ingresos }}</h6>
+                                        <p class="text-muted mb-0 cifra">{{ plato.total_ventas }} Ventas</p>
+                                    </div>
+                                    <div class="col-md-3 text-end">
+                                        <!-- Solo se muestra la gráfica -->
+                                        <div style="height: 60px;">
+                                            <canvas [id]="getCanvasId(categoria.nombre, plato.nombre, i)"></canvas>
+                                            <!-- Cambié plato.plato a plato.nombre -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Gráfica general de todos los platos (Análisis General) -->
+        <div *ngIf="mostrarGraficaAnalisisGeneral" class="chart-container mt-4"
+            style="position: relative; height:50vh; width:100%">
+            <div class="category-legend mb-3 d-flex align-items-center">
+                <br>
+                <div *ngFor="let category of categoriasConColores" class="legend-item me-3 d-flex align-items-center">
+                    <span class="legend-color me-1" [ngStyle]="{ 'background-color': category.color }"></span>
+                    <span>{{ category.nombre }}</span>
+                </div>
+            </div>
+            <canvas id="graficoAnalisisGeneral"></canvas>
+            <br>
+        </div>
+
+
+
+        <!-- Contenedor de la Gráfica de Predicciones con leyenda de categorías -->
+        <div *ngIf="mostrarGraficaPredictiva" class="chart-container mt-4"
+            style="position: relative; height:50vh; width:100%">
+            <div class="category-legend mb-3 d-flex align-items-center">
+                <br>
+                    <div *ngFor="let category of categoriasConColoresPrediccion"
+                        class="legend-item me-3 d-flex align-items-center">
+                        <span class="legend-color me-1" [ngStyle]="{ 'background-color': category.color }"></span>
+                        <span>{{ category.nombre }}</span>
+                    </div>
+            </div>
+            <canvas id="graficoVentas"></canvas>
+        </div>
+
+
+
+    </div>
+</div>

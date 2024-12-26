@@ -1,0 +1,42 @@
+<div class="title-container text-center mb-4">
+    <div class="custom-title">
+        <span>Crear tipo de usuario</span>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form [formGroup]="tipodeusuario" (ngSubmit)="save()" novalidate>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="nombre_tipo">
+                    <i class="bi bi-person-fill"></i> Nombre:
+                </label>
+                <input type="text" class="form-control" formControlName="nombre_tipo" id="nombre_tipo" placeholder="Ingresa el nombre del tipo de usuario" />
+
+                <div *ngIf="tipodeusuario.get('nombre_tipo').hasError('required') && tipodeusuario.get('nombre_tipo').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El campo es obligatorio. Por favor, ingrese un nombre.
+                </div>
+
+                <div *ngIf="tipodeusuario.get('nombre_tipo').hasError('pattern') && tipodeusuario.get('nombre_tipo').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> El nombre solo puede contener letras.
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button [disabled]="tipodeusuario.get('nombre_tipo').invalid || tipodeusuario.get('nombre_tipo').value === ''"
+                    type="submit" class="btn2">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Guardar</span>
+                </button>
+
+                <a routerLink="/dashboard/tipos_de_usuario" class="btn2">
+                    <i class="bi bi-arrow-left-circle-fill"></i>
+                    <span>Ver Tipos de Usuarios</span>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

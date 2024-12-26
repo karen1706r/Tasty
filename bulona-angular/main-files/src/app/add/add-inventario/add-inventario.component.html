@@ -1,0 +1,95 @@
+<div class="title-container text-center mb-4">
+    <div class="custom-title">
+        <span>Crear inventario</span>
+    </div>
+</div>
+
+
+<div class="card shadow-sm">
+    <div class="card-body">
+        <form [formGroup]="inventario" (ngSubmit)="save()" novalidate>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="categoria">
+                    <i class="bi bi-tags"></i> Categoría:
+                </label>
+                <select class="form-control" formControlName="id_categoria" id="categoria">
+                    <option value="" disabled selected class="placeholder">Selecciona una categoría</option>
+                    <option *ngFor="let categoria of categoria_inventario" [value]="categoria.id">
+                        {{ categoria.nombre_categoria }}
+                    </option>
+                </select>
+
+
+                <div *ngIf="inventario.get('id_categoria').invalid && inventario.get('id_categoria').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> Por favor, selecciona una categoría válida.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="ingrediente">
+                    <i class="bi bi-basket"></i> Ingrediente:
+                </label>
+                <select class="form-control" formControlName="id_ingrediente" id="ingrediente">
+                    <option value="" disabled selected class="placeholder">Selecciona un ingrediente</option>
+                    <option *ngFor="let ingrediente of ingredientes" [value]="ingrediente.id">
+                        {{ ingrediente.nombre }}
+                    </option>
+                </select>
+                <div *ngIf="inventario.get('id_ingrediente').invalid && inventario.get('id_ingrediente').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> Por favor, selecciona un ingrediente válido.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="cantidad">
+                    <i class="bi bi-bar-chart"></i> Cantidad:
+                </label>
+                <input type="number" class="form-control" formControlName="cantidad" id="cantidad"
+                    placeholder="Ingresa la cantidad (números solamente)">
+                <div *ngIf="inventario.get('cantidad').invalid && inventario.get('cantidad').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> La cantidad es obligatoria.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="fecha_ingreso">
+                    <i class="bi bi-calendar"></i> Fecha de ingreso:
+                </label>
+                <input type="date" class="form-control" formControlName="fecha_ingreso" id="fecha_ingreso"
+                    placeholder="Selecciona la fecha de ingreso">
+                <div *ngIf="inventario.get('fecha_ingreso').invalid && inventario.get('fecha_ingreso').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> La fecha de ingreso es obligatoria.
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label fw-bold" for="fecha_vencimiento">
+                    <i class="bi bi-calendar-date"></i> Fecha de vencimiento:
+                </label>
+                <input type="date" class="form-control" formControlName="fecha_vencimiento" id="fecha_vencimiento"
+                    [min]="minVencimientoDate" placeholder="Selecciona la fecha de vencimiento">
+                <div *ngIf="inventario.get('fecha_vencimiento').invalid && inventario.get('fecha_vencimiento').touched"
+                    class="text-danger mt-1">
+                    <i class="bi bi-exclamation-circle-fill"></i> La fecha de vencimiento es obligatoria.
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <button [disabled]="inventario.invalid" type="submit" class="btn2">
+                    <i class="bi bi-check-circle-fill"></i>
+                    <span>Guardar</span>
+                </button>
+
+                <a routerLink="/dashboard/inventario" class="btn2">
+                    <i class="bi bi-arrow-left-circle-fill"></i>
+                    <span>Ver inventario</span>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>

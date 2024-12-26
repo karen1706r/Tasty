@@ -1,0 +1,54 @@
+<div class="title-container text-center mb-4">
+    <div class="custom-title">
+        <span>Gestión de Categorías de Platos</span>
+    </div>
+</div>
+
+<div class="card shadow-lg">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <button (click)="agregarCatplatos()" type="button" class="btn2 btn-2">
+                <i class="bi bi-file-earmark-plus"></i>
+                <span>Agregar Categoría Plato</span>
+            </button>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table mb-0 table-striped table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Estado</th>
+                        <th scope="col" class="text-center">Funciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pry of categoriasplatos" class="align-middle">
+                        <th scope="row">{{ pry.id }}</th>
+                        <td>{{ pry.nombre_categoria }}</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" [checked]="pry.estado" disabled>
+                                <label class="form-check-label"></label>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <!-- Deshabilitar los íconos de editar y borrar si la categoría es Bebidas -->
+                            <i role="button" (click)="editarCatplatos(pry.id)"
+                                class="bi bi-pencil-square me-2 icon-edit" title="Editar"
+                                *ngIf="!isCategoriaBebidas(pry)">
+                            </i>
+                            <i role="button" (click)="borrarCatplatos(pry.id)" class="bi bi-recycle icon-delete"
+                                title="Borrar" *ngIf="!isCategoriaBebidas(pry)">
+                            </i>
+                        </td>
+                    </tr>
+                    <tr *ngIf="categoriasplatos.length === 0">
+                        <td colspan="4" class="text-center text-muted">No hay categorías de platos disponibles.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Open+Sans:wght@400;600;700&family=Poppins:wght@400;500;600&family=Raleway:wght@400;700&family=Merriweather:wght@400;700&display=swap');
+
+.title-container {
+    width: 100%;
+    height: auto;
+    border: none;
+    border-radius: 15px; // Bordes redondeados
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px; // Espaciado sutil
+    position: relative;
+    overflow: hidden;
+    background: #e8f0fabc;
+    box-shadow: 0 2px 3px #386aff; // Sombra suave alrededor del contenedor
+}
+
+* {
+    font-family: 'Merriweather', sans-serif;
+}
+
+.card-body {
+    border-radius: 15px; // Bordes redondeados
+    justify-content: center;
+    padding: 35px;
+    box-shadow: 0 2px 3px #386aff;
+}
+
+.shadow-sm {
+    border-radius: 15px; // Bordes redondeados
+}
+
+.custom-title {
+    font-family: 'Merriweather', sans-serif;
+    font-size: 1.50rem;
+    color: #1b2ce3;
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 2;
+}
+
+.custom-title span {
+    font-style: normal;
+}
+
+.title-container:hover::before {
+    opacity: 1;
+}
+
+
+
+
+
+
