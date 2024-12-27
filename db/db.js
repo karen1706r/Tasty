@@ -4,9 +4,9 @@ const { Pool } = require('pg'); // Importa Pool desde el paquete pg
 // Crea una nueva instancia de Pool con la configuración
 const pool = new Pool({
     user: 'postgres', // Tu nombre de usuario de PostgreSQL
-    host: 'db.yrjjseurfnhsandqxicv.supabase.co ',
+    host: 'db.moukbcyzsmfqnseseknw.supabase.co',
     database: 'postgres',
-    password: 'm5HRcuhl4u*', // Tu contraseña de PostgreSQL
+    password: 'tasty', // Tu contraseña de PostgreSQL
     port: 5432,
 });
 

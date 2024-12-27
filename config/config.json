@@ -1,25 +1,25 @@
 {
   "development": {
     "username": "postgres",
-    "password": "m5HRcuhl4u*",
+    "password": "tasty",
     "database": "postgres",
-    "host": "db.yrjjseurfnhsandqxicv.supabase.co",
+    "host": "db.moukbcyzsmfqnseseknw.supabase.co",
     "dialect": "postgres",
     "port": "5432"
   },
   "test": {
     "username": "postgres",
-    "password": "m5HRcuhl4u*",
+    "password": "tasty",
     "database": "postgres",
-    "host": "db.yrjjseurfnhsandqxicv.supabase.co",
+    "host": "db.moukbcyzsmfqnseseknw.supabase.co",
     "dialect": "postgres",
     "port": "5432"
   },
   "production": {
     "username": "postgres",
-    "password": "m5HRcuhl4u*",
+    "password": "tasty",
     "database": "postgres",
-    "host": "db.yrjjseurfnhsandqxicv.supabase.co",
+    "host": "db.moukbcyzsmfqnseseknw.supabase.co",
     "dialect": "postgres",
     "port": "5432"
   }
