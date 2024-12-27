@@ -1,25 +1,25 @@
 {
   "development": {
     "username": "postgres",
-    "password": "karen",
-    "database": "AmorMXFinal",
-    "host": "127.0.0.1",
+    "password": "m5HRcuhl4u*",
+    "database": "postgres",
+    "host": "db.yrjjseurfnhsandqxicv.supabase.co",
     "dialect": "postgres",
     "port": "5432"
   },
   "test": {
     "username": "postgres",
-    "password": "karen",
-    "database": "AmorMXFinal",
-    "host": "127.0.0.1",
+    "password": "m5HRcuhl4u*",
+    "database": "postgres",
+    "host": "db.yrjjseurfnhsandqxicv.supabase.co",
     "dialect": "postgres",
     "port": "5432"
   },
   "production": {
     "username": "postgres",
-    "password": "karen",
-    "database": "AmorMXFinal",
-    "host": "127.0.0.1",
+    "password": "m5HRcuhl4u*",
+    "database": "postgres",
+    "host": "db.yrjjseurfnhsandqxicv.supabase.co",
     "dialect": "postgres",
     "port": "5432"
   }

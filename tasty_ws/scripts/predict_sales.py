@@ -107,7 +107,7 @@ def predict_sales():
 @app.route('/api/sales-summary', methods=['GET'])
 def sales_summary():
     try:
-        db_uri = "postgresql://postgres:karen@127.0.0.1:5432/AmorMXFinal"
+        db_uri =  "postgresql://postgres:m5HRcuhl4u*@db.yrjjseurfnhsandqxicv.supabase.co:5432/postgres"
         engine = create_engine(db_uri)
         query = """
         SELECT 
@@ -141,7 +141,7 @@ def sales_summary():
 
 # Función para obtener los datos de ventas (compartida por ambos endpoints)
 def get_sales_data():
-    db_uri = "postgresql://postgres:karen@127.0.0.1:5432/AmorMXFinal"
+    db_uri = "postgresql://postgres:m5HRcuhl4u*@db.yrjjseurfnhsandqxicv.supabase.co:5432/postgres"
     engine = create_engine(db_uri)
     query = """
     SELECT 
