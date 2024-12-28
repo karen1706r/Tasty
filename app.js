@@ -27,8 +27,19 @@ var predictRoutes = require('./routes/predictRoutes'); // Importa el enrutador d
 var app = express();
 
 // Configura CORS
+defineAllowedOrigins = [
+  'http://localhost:4200', // Origen permitido en desarrollo
+  'https://deployprojectsdev.github.io' // Origen permitido en producción
+];
+
 app.use(cors({
-  origin: 'http://localhost:4200', // Permite solicitudes desde este origen
+  origin: (origin, callback) => {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
 }));
 
 // Configuración del motor de vista
