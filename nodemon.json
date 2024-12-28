@@ -1,0 +1,4 @@
+{
+  "ignore": ["node_modules/*", ".git/*", "scripts/venv/*", "**/__pycache__/*"],
+  "ext": "js,json"
+}
