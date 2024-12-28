@@ -23,24 +23,7 @@ var tipos_de_usuarioRouter = require('./routes/tipos_de_usuario');
 var usuariosRouter = require('./routes/usuarios');
 var enviarFacturaCorreoRouter = require('./routes/enviarFacturaCorreo');
 var predictRoutes = require('./routes/predictRoutes'); // Importa el enrutador de predicción
-
 var app = express();
-
-// Configura CORS
-defineAllowedOrigins = [
-  'http://localhost:4200', // Origen permitido en desarrollo
-  'https://deployprojectsdev.github.io' // Origen permitido en producción
-];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-}));
 
 // Configuración del motor de vista
 app.set('views', path.join(__dirname, 'views'));
@@ -52,6 +35,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cors()); // Habilita CORS
 
 // Configuración de rutas
 app.use('/', indexRouter);
@@ -76,12 +60,12 @@ app.use('/api', predictRoutes); // Usa la ruta de predicción bajo el prefijo /a
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 // Manejo de errores 404
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // Manejador de errores
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
